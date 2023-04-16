@@ -1,2 +1,4 @@
 config.yml
 data/
+node_modules/
+gpt_index/
