@@ -1,9 +1,9 @@
 import './App.css';
 import Graph from "react-graph-vis";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const DEFAULT_PARAMS = {
-  "model": "text-davinci-003",
+  "model": "text-data-001",
   "temperature": 0.3,
   "max_tokens": 800,
   "top_p": 1,
@@ -23,6 +23,22 @@ const options = {
 };
 
 function App() {
+  const [files, setFiles] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [fileContent, setFileContent] = useState('');
+
+  useEffect(() => {
+    fetch('/files')
+      .then((res) => res.json())
+      .then((data) => setFiles(data.files));
+  }, []);
+
+  const handleFileClick = (fileName) => {
+    setSelectedFile(fileName);
+    fetch(`/files/${fileName}`)
+      .then((res) => res.text())
+      .then((data) => setFileContent(data));
+  };
 
   const [graphState, setGraphState] = useState(
     {
@@ -243,17 +259,42 @@ function App() {
 
   return (
     <div className='container'>
-      <h1 className="headerText">GraphGPT 🔎</h1>
-      <p className='subheaderText'>Build complex, directed graphs to add structure to your ideas using natural language. Understand the relationships between people, systems, and maybe solve a mystery.</p>
-      <p className='opensourceText'><a href="https://github.com/varunshenoy/graphgpt">GraphGPT is open-source</a>&nbsp;🎉</p>
-      <center>
+      <h1 className="headerText">BioLLM</h1>
+      <p className='subheaderText'>
+        Biollm, or Bioinformatics Large Language Model, is a specialized LLM designed to analyze data 
+        from documents containing nucleotide sequences, amino acid sequences, and annotations, such as 
+        those found in genebank datasets, by employing natural language processing techniques for advanced 
+        biological data analysis.
+      </p>
+      <p className='opensourceText'><a href="https://github.com/ghlee7411/biollm">BioLLM is open-source!</a></p>
+      <left>
         <div className='inputContainer'>
-          <input className="searchBar" placeholder="Describe your graph..."></input>
+          {/* <input className="searchBar" placeholder="Describe your graph..."></input> */}
           <input className="apiKeyTextField" type="password" placeholder="Enter your OpenAI API key..."></input>
           <button className="generateButton" onClick={createGraph}>Generate</button>
           <button className="clearButton" onClick={clearState}>Clear</button>
         </div>
-      </center>
+      </left>
+
+      <div>
+        <h1>파일 목록</h1>
+        <ul>
+          {files.map((file) => (
+            <li key={file} onClick={() => handleFileClick(file)}>
+              {file}
+            </li>
+          ))}
+        </ul>
+        {selectedFile && (
+          <>
+            <h2>{selectedFile} 내용</h2>
+            <pre>{fileContent}</pre>
+          </>
+        )}
+      </div>
+
+
+
       <div className='graphContainer'>
         <Graph graph={graphState} options={options} style={{ height: "640px" }} />
       </div>
