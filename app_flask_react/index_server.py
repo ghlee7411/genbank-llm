@@ -1,8 +1,11 @@
 import os
 import pickle
+import yaml
 
-# NOTE: for local testing only, do NOT deploy with your key hardcoded
-os.environ['OPENAI_API_KEY'] = "your key here"
+with open('../config.yml', 'r') as f:
+    conf = yaml.safe_load(f)
+API_KEY = conf['openai-api-key']
+os.environ["OPENAI_API_KEY"] = API_KEY
 
 from multiprocessing import Lock
 from multiprocessing.managers import BaseManager
