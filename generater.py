@@ -18,3 +18,8 @@ def cprint(msg: str, color: str = "blue", **kwargs) -> str:
 model_name = "stabilityai/stablelm-tuned-alpha-3b" 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
+
+def generate_text(prompt: str, max_length: int = 100, **kwargs) -> str:
+    input_ids = tokenizer.encode(prompt, return_tensors="pt")
+    output = model.generate(input_ids, max_length=max_length, **kwargs)
+    return tokenizer.decode(output[0], skip_special_tokens=True)

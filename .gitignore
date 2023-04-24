@@ -2,5 +2,7 @@ config.yml
 data/
 temp/
 *.seq
+*.seq.gz
+*.gb
 FooDB/
 Pile/
