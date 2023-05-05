@@ -4,11 +4,14 @@ import os
 
 from langchain.llms import OpenAI
 from gbllm.config import check_openai_api_key, Config
+from gbllm.genbank.util import genbank_record_generator
 
 
 def run_gbllm(
     instruction: str,
     genbank: str,
+    model_name: str = 'text-ada-001',
+    temperature: float = 0.9,
     debug: bool = False,
 ):
     # Configure the logging level.
@@ -19,6 +22,12 @@ def run_gbllm(
     config = Config()
     check_openai_api_key()
 
-    llm = OpenAI(temperature=0.9, model_name='text-ada-001')
-    text = "What would be a good company name for a company that makes colorful socks?"
-    print(llm(text))
+    # Initialize the OpenAI language model.
+    llm = OpenAI(model_name=model_name, temperature=temperature)
+
+    # Load the large genbank file and intialize a generator to iterate records in the file.
+    generator = genbank_record_generator(genbank)
+
+    # Load an agent
+    from gbllm.agent.agent import Agent
+    agent = Agent()
