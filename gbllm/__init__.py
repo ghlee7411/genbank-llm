@@ -10,6 +10,5 @@ if "pytest" in sys.argv or "pytest" in sys.modules or os.getenv("CI"):
 
 # load the environment variables from the .env file in the root directory of the project
 load_dotenv(verbose=True, override=True)
-
 # delete the load_dotenv function from the namespace
 del load_dotenv

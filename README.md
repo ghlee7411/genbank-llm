@@ -25,3 +25,4 @@ GenBank-LLM is a specialized LLM designed to analyze data from documents contain
 # Reference
 - App baseline & Natural Language to Knowledge Graph: [GraphGPT](https://github.com/varunshenoy/GraphGPT)
 - ChatGPT retrieval plugin: [chatgpt-retrieval-plugin](https://github.com/openai/chatgpt-retrieval-plugin)
+- Auto-GPT [Significant-Gravitas/Auto-GPT](https://github.com/Significant-Gravitas/Auto-GPT)
