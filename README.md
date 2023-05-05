@@ -23,8 +23,9 @@ GenBank-LLM is a specialized LLM designed to analyze data from documents contain
 </p>
 
 ## Usage
-```
-
+### Command Line Interface
+``` bash
+./run.sh
 ```
 
 # Reference
