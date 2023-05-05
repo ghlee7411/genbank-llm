@@ -45,8 +45,6 @@ def main(genbank_file, output_dir):
 
 
 if __name__ == '__main__':
-    # get the input genbank file path from the command line using argparse
-    # https://docs.python.org/3/library/argparse.html
     import argparse
     parser = argparse.ArgumentParser(description='Analyze a document using the langchain model')
     parser.add_argument('genbank_file', type=str, help='The path to the genbank file')

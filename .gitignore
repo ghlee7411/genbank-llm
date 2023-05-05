@@ -6,3 +6,4 @@ temp/
 *.gb
 FooDB/
 Pile/
+.env
